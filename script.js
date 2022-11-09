@@ -12,5 +12,6 @@ function multiplication(a, b) {
 }
 
 function division(a, b) {
-    return a / b;
+    return b==0? NaN: a / b;
 }
+
