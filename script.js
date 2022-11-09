@@ -1,17 +1,18 @@
 
-function addition(a, b) {
-    return a + b;
+function addition(num1, num2) {
+    return num1 + num2;
 }
 
-function subtraction(a, b) {
-    return a - b;
+function subtraction(num1, num2) {
+    return num1 - num2;
 }
 
-function multiplication(a, b) {
-    return a * b;
+function multiplication(num1, num2) {
+    return num1 * num2;
 }
 
-function division(a, b) {
-    return b==0? NaN: a / b;
+function division(num1, num2) {
+    return num2==0? NaN: num1 / num2;
 }
 
+function operate()
