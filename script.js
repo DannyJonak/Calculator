@@ -51,8 +51,10 @@ const inputStream = {
             this.bufferZone = this.bufferZone.slice(0, this.bufferZone.length - 1);
         }
     },
-    getInput: function() {
-        return parseFloat(this.bufferZone);
+    extractInput: function() {
+        input = parseFloat(this.bufferZone);
+        this.clearBuffer();
+        return input;
     },
 };
 
@@ -61,11 +63,18 @@ const calculator = {
     operation: null,
     compute: function() {
         if(this.prevAns != null && inputStream.bufferZone.length > 0 && this.operation != null) {
-            nextArg = inputStream.getInput();
+            nextArg = inputStream.extractInput();
             this.prevAns = operate(this.operation, this.prevAns, nextArg);
             return this.prevAns;
         }
     },
 };
+
+const numberKeys = document.querySelectorAll('.numberKey');
+numberKeys.forEach(numberKey => {
+    numberKey.addEventListener('click', () => {
+        inputStream.addChar(numberKey.textContent);
+    })
+})
 
 
