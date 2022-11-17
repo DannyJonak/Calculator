@@ -29,6 +29,13 @@ function operate(operator, ...nums) {
     }
 }
 
+const operationMap = {
+    '+': '+',
+    '-': '-',
+    '\u00F7': '/',
+    'x': '*',
+};
+
 const inputStream = {
     bufferZone: '',
     maxSize: 9,
@@ -52,21 +59,37 @@ const inputStream = {
         }
     },
     extractInput: function() {
-        input = parseFloat(this.bufferZone);
-        this.clearBuffer();
-        return input;
+        if(this.bufferZone !== ''){
+            const input = parseFloat(this.bufferZone);
+            this.clearBuffer();
+            return input;
+        }
     },
 };
 
 const calculator = {
-    prevAns: null,
+    arguments: [],
     operation: null,
-    compute: function() {
-        if(this.prevAns != null && inputStream.bufferZone.length > 0 && this.operation != null) {
-            nextArg = inputStream.extractInput();
-            this.prevAns = operate(this.operation, this.prevAns, nextArg);
-            return this.prevAns;
+    clear: function() {
+        this.arguments = [];
+        this.operation = null;
+    },
+    getArg: function() {
+        const nextArg = inputStream.extractInput();
+        if(nextArg !== undefined) {
+            if(this.arguments.length === 2) this.arguments.shift();
+            this.arguments.push(nextArg);
         }
+    },
+    binaryOperate: function() {
+        this.getArg();
+        if(this.arguments.length === 2 && this.operation !== null) {
+            const ans = operate(this.operation, ...this.arguments);
+            this.clear();
+            this.arguments.push(ans);
+            return ans;
+        }
+        return this.arguments.at(-1);
     },
 };
 
@@ -74,7 +97,22 @@ const numberKeys = document.querySelectorAll('.numberKey');
 numberKeys.forEach(numberKey => {
     numberKey.addEventListener('click', () => {
         inputStream.addChar(numberKey.textContent);
-    })
-})
+    });
+});
 
+const binaryOpKeys = document.querySelectorAll('.binary-op-key');
+binaryOpKeys.forEach(binaryOpKey => {
+    binaryOpKey.addEventListener('click', () => {
+        calculator.binaryOperate();
+        console.log(binaryOpKey.textContent);
+        const op = operationMap[binaryOpKey.textContent];
+        calculator.operation = op;    
+    });
+});
 
+const equals = document.querySelector('#equals');
+equals.addEventListener('click', () => {
+    calculator.getArg();
+    const ans = calculator.binaryOperate();
+    console.log(ans);
+});
