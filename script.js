@@ -114,7 +114,6 @@ const calculator = {
             const ans = operations.operate(operation, this.arguments.pop());
             console.log(ans);
             this.arguments.push(ans);
-            console.log(this.arguments);
             return ans;
         }
     },
