@@ -77,9 +77,13 @@ const calculator = {
     getArg: function() {
         const nextArg = inputStream.extractInput();
         if(nextArg !== undefined) {
+            if(this.arguments.length > 0 && this.operation === null) this.clear;
             if(this.arguments.length === 2) this.arguments.shift();
             this.arguments.push(nextArg);
         }
+    },
+    setOperation: function(op) {
+        this.operation = op;
     },
     binaryOperate: function() {
         this.getArg();
@@ -87,6 +91,7 @@ const calculator = {
             const ans = operate(this.operation, ...this.arguments);
             this.clear();
             this.arguments.push(ans);
+            console.log(ans);
             return ans;
         }
         return this.arguments.at(-1);
@@ -106,13 +111,18 @@ binaryOpKeys.forEach(binaryOpKey => {
         calculator.binaryOperate();
         console.log(binaryOpKey.textContent);
         const op = operationMap[binaryOpKey.textContent];
-        calculator.operation = op;    
+        calculator.setOperation(op);    
     });
 });
 
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
     calculator.getArg();
-    const ans = calculator.binaryOperate();
-    console.log(ans);
+    calculator.binaryOperate();
 });
+
+const clear = document.querySelector('#clear');
+clear.addEventListener('click', () => {
+    inputStream.clearBuffer();
+    calculator.clear();
+})
