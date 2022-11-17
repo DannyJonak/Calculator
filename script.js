@@ -40,7 +40,7 @@ const operationMap = {
     '-': '-',
     '\u00F7': '/',
     'x': '*',
-    '': '+/-'
+    '\u000B1': '+/-'
 };
 
 const inputStream = {
