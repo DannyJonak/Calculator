@@ -19,6 +19,10 @@ function changeSign(num) {
     return -1 * num;
 }
 
+function squareRoot(num) {
+    return num<0? NaN: Math.sqrt(num);
+}
+
 function operate(operator, ...nums) {
     switch(operator) {
        
@@ -32,6 +36,8 @@ function operate(operator, ...nums) {
             return division(nums[0], nums[1]);
         case '+/-':
             return changeSign(nums[0]);
+        case 'sqrt':
+            return squareRoot(nums[0]);
     }
 }
 
@@ -40,7 +46,8 @@ const operationMap = {
     '-': '-',
     '\u00F7': '/',
     'x': '*',
-    '\u00B1': '+/-'
+    '\u00B1': '+/-',
+    '\u221A': 'sqrt'
 };
 
 const inputStream = {
