@@ -87,7 +87,7 @@ const calculator = {
     getArg: function() {
         const nextArg = inputStream.extractInput();
         if(nextArg !== undefined) {
-            if(this.arguments.length > 0 && this.operation === null) this.clear;
+            if(this.arguments.length > 0 && this.operation === null) this.clear();
             if(this.arguments.length === 2) this.arguments.shift();
             this.arguments.push(nextArg);
         }
