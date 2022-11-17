@@ -1,46 +1,3 @@
-
-function addition(num1, num2) {
-    return num1 + num2;
-}
-
-function subtraction(num1, num2) {
-    return num1 - num2;
-}
-
-function multiplication(num1, num2) {
-    return num1 * num2;
-}
-
-function division(num1, num2) {
-    return num2==0? NaN: num1 / num2;
-}
-
-function changeSign(num) {
-    return -1 * num;
-}
-
-function squareRoot(num) {
-    return num<0? NaN: Math.sqrt(num);
-}
-
-function operate(operator, ...nums) {
-    switch(operator) {
-       
-        case '+':
-            return addition(nums[0], nums[1]);
-        case '-':
-            return subtraction(nums[0], nums[1]);
-        case '*':
-            return multiplication(nums[0], nums[1]);
-        case '/':
-            return division(nums[0], nums[1]);
-        case '+/-':
-            return changeSign(nums[0]);
-        case 'sqrt':
-            return squareRoot(nums[0]);
-    }
-}
-
 const operationMap = {
     '+': '+',
     '-': '-',
@@ -48,6 +5,44 @@ const operationMap = {
     'x': '*',
     '\u00B1': '+/-',
     '\u221A': 'sqrt'
+};
+
+const operations = {
+    operate: function(operator, ...nums) {
+        switch(operator) {
+           
+            case '+':
+                return addition(nums[0], nums[1]);
+            case '-':
+                return subtraction(nums[0], nums[1]);
+            case '*':
+                return multiplication(nums[0], nums[1]);
+            case '/':
+                return division(nums[0], nums[1]);
+            case '+/-':
+                return changeSign(nums[0]);
+            case 'sqrt':
+                return squareRoot(nums[0]);
+        }
+    },
+    addition: function(num1, num2) {
+        return num1 + num2;
+    },
+    subtraction: function(num1, num2) {
+        return num1 - num2;
+    },
+    multiplication: function(num1, num2) {
+        return num1 * num2;
+    },
+    division: function(num1, num2) {
+        return num2==0? NaN: num1 / num2;
+    },
+    changeSign: function(num) {
+        return -1 * num;
+    },
+    squareRoot: function(num) {
+        return num<0? NaN: Math.sqrt(num);
+    },
 };
 
 const inputStream = {
@@ -103,7 +98,7 @@ const calculator = {
     binaryOperate: function() {
         this.getArg();
         if(this.arguments.length === 2 && this.operation !== null) {
-            const ans = operate(this.operation, ...this.arguments);
+            const ans = this.operate(this.operation, ...this.arguments);
             this.clear();
             this.arguments.push(ans);
             console.log(ans);
@@ -116,7 +111,7 @@ const calculator = {
         this.getArg();
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
-            const ans = operate(operation, this.arguments.pop());
+            const ans = this.operate(operation, this.arguments.pop());
             console.log(ans);
             this.arguments.push(ans);
             console.log(this.arguments);
