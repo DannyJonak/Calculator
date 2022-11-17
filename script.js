@@ -15,6 +15,10 @@ function division(num1, num2) {
     return num2==0? NaN: num1 / num2;
 }
 
+function changeSign(num) {
+    return -1 * num;
+}
+
 function operate(operator, ...nums) {
     switch(operator) {
        
@@ -26,6 +30,8 @@ function operate(operator, ...nums) {
             return multiplication(nums[0], nums[1]);
         case '/':
             return division(nums[0], nums[1]);
+        case '+/-':
+            return changeSign(nums[0]);
     }
 }
 
@@ -34,6 +40,7 @@ const operationMap = {
     '-': '-',
     '\u00F7': '/',
     'x': '*',
+    '': '+/-'
 };
 
 const inputStream = {
