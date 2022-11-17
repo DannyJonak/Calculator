@@ -96,6 +96,14 @@ const calculator = {
         }
         return this.arguments.at(-1);
     },
+    unaryOperate: function() {
+        this.getArg();
+        if(this.arguments.length > 0) {
+            const ans = operate(this.operation, this.arguments.at(-1));
+            this.arguments.push(ans);
+            return ans;
+        }
+    },
 };
 
 const numberKeys = document.querySelectorAll('.numberKey');
