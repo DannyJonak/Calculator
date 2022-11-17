@@ -12,17 +12,17 @@ const operations = {
         switch(operator) {
            
             case '+':
-                return addition(nums[0], nums[1]);
+                return this.addition(nums[0], nums[1]);
             case '-':
-                return subtraction(nums[0], nums[1]);
+                return this.subtraction(nums[0], nums[1]);
             case '*':
-                return multiplication(nums[0], nums[1]);
+                return this.multiplication(nums[0], nums[1]);
             case '/':
-                return division(nums[0], nums[1]);
+                return this.division(nums[0], nums[1]);
             case '+/-':
-                return changeSign(nums[0]);
+                return this.changeSign(nums[0]);
             case 'sqrt':
-                return squareRoot(nums[0]);
+                return this.squareRoot(nums[0]);
         }
     },
     addition: function(num1, num2) {
@@ -98,7 +98,7 @@ const calculator = {
     binaryOperate: function() {
         this.getArg();
         if(this.arguments.length === 2 && this.operation !== null) {
-            const ans = this.operate(this.operation, ...this.arguments);
+            const ans = operations.operate(this.operation, ...this.arguments);
             this.clear();
             this.arguments.push(ans);
             console.log(ans);
@@ -111,7 +111,7 @@ const calculator = {
         this.getArg();
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
-            const ans = this.operate(operation, this.arguments.pop());
+            const ans = operations.operate(operation, this.arguments.pop());
             console.log(ans);
             this.arguments.push(ans);
             console.log(this.arguments);
