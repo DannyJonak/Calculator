@@ -40,7 +40,7 @@ const operationMap = {
     '-': '-',
     '\u00F7': '/',
     'x': '*',
-    '\u000B1': '+/-'
+    '\u00B1': '+/-'
 };
 
 const inputStream = {
@@ -59,6 +59,7 @@ const inputStream = {
                 this.bufferZone += char;
             }
         }
+        console.log(this.bufferZone);
     },
     removeChar: function() {
         if (this.bufferZone.length > 0) {
@@ -101,13 +102,17 @@ const calculator = {
             console.log(ans);
             return ans;
         }
+        console.log(this.arguments.at(-1))
         return this.arguments.at(-1);
     },
-    unaryOperate: function() {
+    unaryOperate: function(operation) {
         this.getArg();
+        if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
-            const ans = operate(this.operation, this.arguments.at(-1));
+            const ans = operate(operation, this.arguments.pop());
+            console.log(ans);
             this.arguments.push(ans);
+            console.log(this.arguments);
             return ans;
         }
     },
@@ -130,9 +135,17 @@ binaryOpKeys.forEach(binaryOpKey => {
     });
 });
 
+const unaryOpKeys = document.querySelectorAll('.unary-op-key');
+unaryOpKeys.forEach(unaryOpKey => {
+    unaryOpKey.addEventListener('click', () => {
+        const op = operationMap[unaryOpKey.textContent]
+        console.log(unaryOpKey.textContent);
+        calculator.unaryOperate(op);
+    });
+});
+
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
-    calculator.getArg();
     calculator.binaryOperate();
 });
 
