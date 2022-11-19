@@ -61,7 +61,7 @@ const inputStream = {
     bufferZone: '',
     maxSize: 10,
     clearBuffer: function() {
-        this.bufferZone = '0';
+        this.bufferZone = '';
     },
     addChar: function(char) {
         if(this.bufferZone.length < this.maxSize) {
@@ -198,6 +198,7 @@ const clear = document.querySelector('#clear');
 clear.addEventListener('click', () => {
     inputStream.clearBuffer();
     calculator.clear();
+    inputStream.addChar('0');
     display.textContent = inputStream.bufferZone;
 });
 
