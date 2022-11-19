@@ -37,7 +37,7 @@ body {
 .keyboard {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    width: 422px;
+    width: 424px;
     height: 400px;
     gap: 8px 8px;
 }
@@ -100,7 +100,7 @@ body {
     background-color: rgb(160, 0, 0);
     border: 2px solid black;
     align-self: flex-end;
-    margin-right: 40px;
+    margin-right: 38px;
     display: flex;
     justify-content: space-evenly;
 }
