@@ -151,13 +151,15 @@ const calculator = {
         }
     },
     formatOutput: function(output) {
-        if(output > 9999999999 || output < 0.00000001) {
+        outputString = output.toString();
+        if(Math.abs(output) > 9999999999 || (Math.abs(output) < 0.00000001 && output !== 0)) {
             tempOutput = output.toExponential(3);
-            output = output.toExponential(13 - tempOutput.length);
+            return output.toExponential(13 - tempOutput.length);
+        } else if(outputString.length > 10) {
+            return (Math.round(output * 1000000000) / 1000000000).toString();
         } else {
-            output = (Math.round(output * 1000000000) / 1000000000).toString();
+            return outputString;
         }
-        return output;
     },
     handleError: function() {
         this.clear();
