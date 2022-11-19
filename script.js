@@ -170,13 +170,14 @@ const numberKeys = document.querySelectorAll('.numberKey');
 numberKeys.forEach(numberKey => {
     numberKey.addEventListener('click', () => {
         inputStream.addChar(numberKey.textContent);
+        display.textContent = inputStream.bufferZone;
     });
 });
 
 const binaryOpKeys = document.querySelectorAll('.binary-op-key');
 binaryOpKeys.forEach(binaryOpKey => {
     binaryOpKey.addEventListener('click', () => {
-        calculator.binaryOperate();
+        display.textContent = calculator.binaryOperate();
         const op = operationMap[binaryOpKey.textContent];
         calculator.setOperation(op);    
     });
@@ -186,13 +187,13 @@ const unaryOpKeys = document.querySelectorAll('.unary-op-key');
 unaryOpKeys.forEach(unaryOpKey => {
     unaryOpKey.addEventListener('click', () => {
         const op = operationMap[unaryOpKey.textContent]
-        calculator.unaryOperate(op);
+        display.textContent = calculator.unaryOperate(op);
     });
 });
 
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
-    calculator.binaryOperate();
+    display.textContent = calculator.binaryOperate();
 });
 
 const clear = document.querySelector('#clear');
@@ -200,9 +201,15 @@ clear.addEventListener('click', () => {
     inputStream.clearBuffer();
     calculator.clear();
     inputStream.addChar('0');
+    display.textContent = inputStream.bufferZone;
 });
 
 const backspace = document.querySelector('#backspace');
 backspace.addEventListener('click', () => {
-    inputStream.removeChar();
+    if(inputStream.bufferZone !== ''){
+        inputStream.removeChar();
+        display.textContent = inputStream.bufferZone;
+    }
 });
+
+const display = document.querySelector('.display');
