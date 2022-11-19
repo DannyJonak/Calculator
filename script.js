@@ -7,6 +7,7 @@ const operationMap = {
     '\u221A': 'sqrt',
     '%': '%',
     'yx': 'pow',
+    'n!': 'n!'
 };
 
 const operations = {
@@ -29,6 +30,8 @@ const operations = {
                 return this.modulo(nums[0], nums[1]);
             case 'pow':
                 return this.power(nums[0], nums[1]);
+            case 'n!':
+                return this.factorial(nums[0]);
         }
     },
     addition: function(num1, num2) {
@@ -56,6 +59,9 @@ const operations = {
     squareRoot: function(num) {
         return num<0? NaN: Math.sqrt(num);
     },
+    factorial: function(num) {
+        return (num < 0)? NaN: (num === 0)? 1: (num >= 171)? NaN: num * this.factorial(num - 1);
+    }
 };
 
 const inputStream = {
