@@ -21,8 +21,6 @@ const operations = {
                 return this.multiplication(nums[0], nums[1]);
             case '/':
                 return this.division(nums[0], nums[1]);
-            case '+/-':
-                return this.changeSign(nums[0]);
             case 'sqrt':
                 return this.squareRoot(nums[0]);
             case 'pow':
@@ -45,9 +43,6 @@ const operations = {
     },
     power: function(num1, num2) {
         return Math.pow(num1, num2);
-    },
-    changeSign: function(num) {
-        return -1 * num;
     },
     squareRoot: function(num) {
         return num<0? NaN: Math.sqrt(num);
@@ -143,6 +138,15 @@ const calculator = {
             return this.formatOutput(ans);
         }
     },
+    changeSign: function() {
+        if(inputStream.bufferZone !== '') {
+            inputStream.bufferZone = parseFloat(-1 * inputStream.bufferZone).toString();
+            display.textContent = inputStream.bufferZone;
+        } else if(calculator.operation === null && calculator.arguments.length === 1) {
+            calculator.arguments[0] = -1 * calculator.arguments[0];
+            display.textContent = calculator.formatOutput(calculator.arguments.at(-1));
+        }
+    },
     formatOutput: function(output) {
         outputString = output.toString();
         if(Math.abs(output) > 9999999999 || (Math.abs(output) < 0.00000001 && output !== 0)) {
@@ -215,6 +219,13 @@ backspace.addEventListener('click', () => {
             inputStream.removeChar();
             display.textContent = inputStream.bufferZone;
         }
+    }
+});
+
+const changeSign = document.querySelector('#change-sign');
+changeSign.addEventListener('click', () => {
+    if(calculator.isActive) {
+        calculator.changeSign();
     }
 });
 
