@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 800px;
+    border: 2px solid black;
+}
