@@ -119,6 +119,11 @@ const calculator = {
         this.getArg();
         if(this.arguments.length === 2 && this.operation !== null) {
             const ans = operations.operate(this.operation, ...this.arguments);
+            if(isNaN(ans) || ans === Infinity){
+                this.handleError();
+                console.log('Error!');
+                return 'Error!'
+            }
             this.clear();
             this.arguments.push(ans);
             console.log(this.formatOutput(ans));
@@ -132,6 +137,12 @@ const calculator = {
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
             const ans = operations.operate(operation, this.arguments.pop());
+            console.log(ans);
+            if(isNaN(ans) || ans === Infinity){
+                this.handleError();
+                console.log('Error!');
+                return 'Error!'
+            }
             this.arguments.push(ans);
             console.log(this.formatOutput(ans));
             return this.formatOutput(ans);
@@ -146,6 +157,11 @@ const calculator = {
         }
         return output;
     },
+    handleError: function() {
+        this.clear();
+        inputStream.clearBuffer();
+        this.isActive = false;
+    }
 };
 
 const numberKeys = document.querySelectorAll('.numberKey');
