@@ -19,7 +19,9 @@ body {
 }
 
 .display {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(90, 0, 0);
+    color: rgb(255, 0, 0);
+    text-shadow: rgb(255, 125, 125) 0px 0px 10px;
     height: 100px;
     width: 400px;
     font-size: 75px;
