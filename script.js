@@ -76,7 +76,6 @@ const inputStream = {
                 this.bufferZone += char;
             }
         }
-        console.log(this.bufferZone);
     },
     removeChar: function() {
         if (this.bufferZone.length > 0) {
@@ -120,15 +119,12 @@ const calculator = {
             const ans = operations.operate(this.operation, ...this.arguments);
             if(isNaN(ans) || ans === Infinity){
                 this.handleError();
-                console.log('Error!');
                 return 'Error!'
             }
             this.clear();
             this.arguments.push(ans);
-            console.log(this.formatOutput(ans));
             return this.formatOutput(ans);
         }
-        console.log(this.arguments.at(-1))
         return this.arguments.at(-1);
     },
     unaryOperate: function(operation) {
@@ -139,11 +135,9 @@ const calculator = {
             const ans = operations.operate(operation, this.arguments.pop());
             if(isNaN(ans) || ans === Infinity){
                 this.handleError();
-                console.log('Error!');
                 return 'Error!'
             }
             this.arguments.push(ans);
-            console.log(this.formatOutput(ans));
             return this.formatOutput(ans);
         }
     },
