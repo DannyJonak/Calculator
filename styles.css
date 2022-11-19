@@ -29,6 +29,7 @@ body {
     padding-left: 10px;
     padding-right: 10px;
     border: 2px solid black;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -59,6 +60,7 @@ body {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+    border-radius: 5px;
     cursor: default;
     color: white;
     font-size: 28px;
@@ -99,6 +101,7 @@ body {
     height: 50px;
     background-color: rgb(160, 0, 0);
     border: 2px solid black;
+    border-radius: 5px;
     align-self: flex-end;
     margin-right: 38px;
     display: flex;
