@@ -61,10 +61,9 @@ const inputStream = {
     bufferZone: '',
     maxSize: 10,
     clearBuffer: function() {
-        this.bufferZone = '';
+        this.bufferZone = '0';
     },
     addChar: function(char) {
-        if(!calculator.isActive) return;
         if(this.bufferZone.length < this.maxSize) {
             if(char === '.') {
                 if(!this.bufferZone.includes('.')) {
@@ -109,11 +108,9 @@ const calculator = {
         }
     },
     setOperation: function(op) {
-        if(!this.isActive) return;
         this.operation = op;
     },
     binaryOperate: function() {
-        if(!this.isActive) return;
         this.getArg();
         if(this.arguments.length === 2 && this.operation !== null) {
             const ans = operations.operate(this.operation, ...this.arguments);
@@ -125,10 +122,9 @@ const calculator = {
             this.arguments.push(ans);
             return this.formatOutput(ans);
         }
-        return this.arguments.at(-1);
+        return this.formatOutput(this.arguments.at(-1));
     },
     unaryOperate: function(operation) {
-        if(!this.isActive) return;
         this.getArg();
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
@@ -163,46 +159,55 @@ const calculator = {
 const numberKeys = document.querySelectorAll('.numberKey');
 numberKeys.forEach(numberKey => {
     numberKey.addEventListener('click', () => {
-        inputStream.addChar(numberKey.textContent);
-        display.textContent = inputStream.bufferZone;
+        if(calculator.isActive){
+            inputStream.addChar(numberKey.textContent);
+            display.textContent = inputStream.bufferZone;
+        }
     });
 });
 
 const binaryOpKeys = document.querySelectorAll('.binary-op-key');
 binaryOpKeys.forEach(binaryOpKey => {
     binaryOpKey.addEventListener('click', () => {
-        display.textContent = calculator.binaryOperate();
-        const op = operationMap[binaryOpKey.textContent];
-        calculator.setOperation(op);    
+        if(calculator.isActive) {
+            display.textContent = calculator.binaryOperate();
+            const op = operationMap[binaryOpKey.textContent];
+            calculator.setOperation(op);
+        }    
     });
 });
 
 const unaryOpKeys = document.querySelectorAll('.unary-op-key');
 unaryOpKeys.forEach(unaryOpKey => {
     unaryOpKey.addEventListener('click', () => {
-        const op = operationMap[unaryOpKey.textContent]
-        display.textContent = calculator.unaryOperate(op);
+        if(calculator.isActive) {
+            const op = operationMap[unaryOpKey.textContent]
+            display.textContent = calculator.unaryOperate(op);
+        }
     });
 });
 
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
-    display.textContent = calculator.binaryOperate();
+    if(calculator.isActive) {
+        display.textContent = calculator.binaryOperate();
+    }
 });
 
 const clear = document.querySelector('#clear');
 clear.addEventListener('click', () => {
     inputStream.clearBuffer();
     calculator.clear();
-    inputStream.addChar('0');
     display.textContent = inputStream.bufferZone;
 });
 
 const backspace = document.querySelector('#backspace');
 backspace.addEventListener('click', () => {
-    if(inputStream.bufferZone !== ''){
-        inputStream.removeChar();
-        display.textContent = inputStream.bufferZone;
+    if(calculator.isActive) {
+        if(inputStream.bufferZone !== ''){
+            inputStream.removeChar();
+            display.textContent = inputStream.bufferZone;
+        }
     }
 });
 
