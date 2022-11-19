@@ -173,4 +173,9 @@ const clear = document.querySelector('#clear');
 clear.addEventListener('click', () => {
     inputStream.clearBuffer();
     calculator.clear();
-})
+});
+
+const backspace = document.querySelector('#backspace');
+backspace.addEventListener('click', () => {
+    inputStream.removeChar();
+});
