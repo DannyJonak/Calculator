@@ -66,7 +66,7 @@ const operations = {
 
 const inputStream = {
     bufferZone: '',
-    maxSize: 9,
+    maxSize: 10,
     clearBuffer: function() {
         this.bufferZone = '';
     },
@@ -97,6 +97,7 @@ const inputStream = {
 };
 
 const calculator = {
+    isActive: false,
     arguments: [],
     operation: null,
     clear: function() {
@@ -120,8 +121,8 @@ const calculator = {
             const ans = operations.operate(this.operation, ...this.arguments);
             this.clear();
             this.arguments.push(ans);
-            console.log(ans);
-            return ans;
+            console.log(this.formatOutput(ans));
+            return this.formatOutput(ans);
         }
         console.log(this.arguments.at(-1))
         return this.arguments.at(-1);
@@ -131,10 +132,19 @@ const calculator = {
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
             const ans = operations.operate(operation, this.arguments.pop());
-            console.log(ans);
             this.arguments.push(ans);
-            return ans;
+            console.log(this.formatOutput(ans));
+            return this.formatOutput(ans);
         }
+    },
+    formatOutput: function(output) {
+        outputLength = output.toString().length;
+        if(outputLength > 10) {
+            output = output.toExponential(4);
+        } else {
+            output = output.toFixed(9);
+        }
+        return output;
     },
 };
 
@@ -149,7 +159,6 @@ const binaryOpKeys = document.querySelectorAll('.binary-op-key');
 binaryOpKeys.forEach(binaryOpKey => {
     binaryOpKey.addEventListener('click', () => {
         calculator.binaryOperate();
-        console.log(binaryOpKey.textContent);
         const op = operationMap[binaryOpKey.textContent];
         calculator.setOperation(op);    
     });
@@ -159,7 +168,6 @@ const unaryOpKeys = document.querySelectorAll('.unary-op-key');
 unaryOpKeys.forEach(unaryOpKey => {
     unaryOpKey.addEventListener('click', () => {
         const op = operationMap[unaryOpKey.textContent]
-        console.log(unaryOpKey.textContent);
         calculator.unaryOperate(op);
     });
 });
