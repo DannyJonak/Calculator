@@ -120,7 +120,7 @@ const calculator = {
             const ans = operations.operate(this.operation, ...this.arguments);
             if(isNaN(ans) || ans === Infinity){
                 this.handleError();
-                return 'Error!'
+                return 'Error'
             }
             this.clear();
             this.arguments.push(ans);
@@ -137,7 +137,7 @@ const calculator = {
             const ans = operations.operate(operation, this.arguments.pop());
             if(isNaN(ans) || ans === Infinity){
                 this.handleError();
-                return 'Error!'
+                return 'Error'
             }
             this.arguments.push(ans);
             return this.formatOutput(ans);
