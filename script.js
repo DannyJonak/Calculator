@@ -64,6 +64,7 @@ const inputStream = {
         this.bufferZone = '';
     },
     addChar: function(char) {
+        if(!calculator.isActive) return;
         if(this.bufferZone.length < this.maxSize) {
             if(char === '.') {
                 if(!this.bufferZone.includes('.')) {
@@ -109,9 +110,11 @@ const calculator = {
         }
     },
     setOperation: function(op) {
+        if(!this.isActive) return;
         this.operation = op;
     },
     binaryOperate: function() {
+        if(!this.isActive) return;
         this.getArg();
         if(this.arguments.length === 2 && this.operation !== null) {
             const ans = operations.operate(this.operation, ...this.arguments);
@@ -129,6 +132,7 @@ const calculator = {
         return this.arguments.at(-1);
     },
     unaryOperate: function(operation) {
+        if(!this.isActive) return;
         this.getArg();
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
@@ -195,6 +199,7 @@ const clear = document.querySelector('#clear');
 clear.addEventListener('click', () => {
     inputStream.clearBuffer();
     calculator.clear();
+    inputStream.addChar('0');
 });
 
 const backspace = document.querySelector('#backspace');
