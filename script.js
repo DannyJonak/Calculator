@@ -4,7 +4,9 @@ const operationMap = {
     '\u00F7': '/',
     'x': '*',
     '\u00B1': '+/-',
-    '\u221A': 'sqrt'
+    '\u221A': 'sqrt',
+    '%': '%',
+    'yx': 'pow',
 };
 
 const operations = {
@@ -23,6 +25,10 @@ const operations = {
                 return this.changeSign(nums[0]);
             case 'sqrt':
                 return this.squareRoot(nums[0]);
+            case '%':
+                return this.modulo(nums[0], nums[1]);
+            case 'pow':
+                return this.power(nums[0], nums[1]);
         }
     },
     addition: function(num1, num2) {
