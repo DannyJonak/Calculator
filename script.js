@@ -152,7 +152,8 @@ const calculator = {
     },
     formatOutput: function(output) {
         if(output > 9999999999 || output < 0.00000001) {
-            output = output.toExponential(3);
+            tempOutput = output.toExponential(3);
+            output = output.toExponential(13 - tempOutput.length);
         } else {
             output = (Math.round(output * 1000000000) / 1000000000).toString();
         }
