@@ -76,6 +76,8 @@ const inputStream = {
                 if(!this.bufferZone.includes('.')) {
                     this.bufferZone += char;
                 }
+            } else if(this.bufferZone === '0') {
+                this.bufferZone = (char === 0)? '0': `${char}`; 
             } else {
                 this.bufferZone += char;
             }
@@ -103,6 +105,7 @@ const calculator = {
     clear: function() {
         this.arguments = [];
         this.operation = null;
+        this.isActive = true;
     },
     getArg: function() {
         const nextArg = inputStream.extractInput();
@@ -137,7 +140,6 @@ const calculator = {
         if(this.arguments.length === 1 && this.operation !== null) return;
         if(this.arguments.length > 0) {
             const ans = operations.operate(operation, this.arguments.pop());
-            console.log(ans);
             if(isNaN(ans) || ans === Infinity){
                 this.handleError();
                 console.log('Error!');
@@ -149,11 +151,10 @@ const calculator = {
         }
     },
     formatOutput: function(output) {
-        outputLength = output.toString().length;
-        if(outputLength > 10) {
-            output = output.toExponential(4);
+        if(output > 9999999999 || output < 0.00000001) {
+            output = output.toExponential(3);
         } else {
-            output = output.toFixed(9);
+            output = (Math.round(output * 1000000000) / 1000000000).toString();
         }
         return output;
     },
