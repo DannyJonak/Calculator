@@ -5,7 +5,6 @@ const operationMap = {
     'x': '*',
     '\u00B1': '+/-',
     '\u221A': 'sqrt',
-    '%': '%',
     'yx': 'pow',
     'n!': 'n!'
 };
@@ -26,8 +25,6 @@ const operations = {
                 return this.changeSign(nums[0]);
             case 'sqrt':
                 return this.squareRoot(nums[0]);
-            case '%':
-                return this.modulo(nums[0], nums[1]);
             case 'pow':
                 return this.power(nums[0], nums[1]);
             case 'n!':
@@ -45,10 +42,6 @@ const operations = {
     },
     division: function(num1, num2) {
         return num2==0? NaN: num1 / num2;
-    },
-    modulo: function(num1, num2) {
-        return (parseInt(num1) == num1 && parseInt(num2) == num2 && num2 !== 0)?
-            num1%num2: NaN;
     },
     power: function(num1, num2) {
         return Math.pow(num1, num2);
