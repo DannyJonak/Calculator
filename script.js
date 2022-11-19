@@ -149,7 +149,8 @@ const calculator = {
             tempOutput = output.toExponential(3);
             return output.toExponential(13 - tempOutput.length);
         } else if(outputString.length > 10) {
-            return (Math.round(output * 1000000000) / 1000000000).toString();
+            const outputLengthFactor = 10 ** (9 - outputString.indexOf('.'));
+            return (Math.round(output * outputLengthFactor) / outputLengthFactor).toString();
         } else {
             return outputString;
         }
