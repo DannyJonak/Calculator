@@ -91,3 +91,19 @@ body {
 #backspace {
     background-color: teal;
 }
+
+.solar-panel {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(160, 0, 0);
+    border: 2px solid black;
+    align-self: flex-end;
+    margin-right: 40px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.solar-panel .container {
+    background-color: rgb(200, 0, 0);
+    width: 62px;
+}
