@@ -53,7 +53,11 @@ const operations = {
         return num<0? NaN: Math.sqrt(num);
     },
     factorial: function(num) {
-        return (num < 0)? NaN: (num === 0)? 1: (num >= 171)? NaN: num * this.factorial(num - 1);
+        try {
+            return (num < 0)? NaN: (num === 0)? 1: num * this.factorial(num - 1);
+        } catch(error) {
+            return NaN;
+        }
     }
 };
 
@@ -126,7 +130,9 @@ const calculator = {
     },
     unaryOperate: function(operation) {
         this.getArg();
-        if(this.arguments.length === 1 && this.operation !== null) return;
+        if(this.arguments.length === 1 && this.operation !== null) {
+            return this.formatOutput(this.arguments.at(-1));
+        }
         if(this.arguments.length > 0) {
             const ans = operations.operate(operation, this.arguments.pop());
             if(isNaN(ans) || ans === Infinity){
