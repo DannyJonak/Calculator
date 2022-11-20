@@ -42,7 +42,7 @@ const operations = {
         return num2==0? NaN: num1 / num2;
     },
     power: function(num1, num2) {
-        return Math.pow(num1, num2);
+        return (num1 === 0 && num2 === 0)? NaN: Math.pow(num1, num2);
     },
     squareRoot: function(num) {
         return num<0? NaN: Math.sqrt(num);
