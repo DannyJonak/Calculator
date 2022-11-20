@@ -85,11 +85,11 @@ body {
 }
 
 #clear {
-    background-color: rgb(252, 115, 35);
+    background-color: rgb(211, 32, 32);
 }
 
 #equals {
-    background-color:teal;
+    background-color:rgb(252, 115, 35);
 }
 
 #backspace {
