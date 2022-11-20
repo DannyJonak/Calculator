@@ -4,6 +4,7 @@ body {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    background-color: rgb(202, 202, 202);
 }
 
 .calculator-body {
@@ -20,12 +21,13 @@ body {
 }
 
 .display {
-    background-color: rgb(90, 0, 0);
-    color: rgb(255, 0, 0);
-    text-shadow: rgb(255, 125, 125) 0px 0px 10px;
+    background-color: rgb(0, 29, 29);
+    color: rgb(0, 201, 201);
+    text-shadow:rgb(0, 255, 255) 0px 0px 6px;
+    font-family: 'Courier New', Courier, monospace;
     height: 100px;
     width: 400px;
-    font-size: 75px;
+    font-size: 60px;
     padding-left: 10px;
     padding-right: 10px;
     border: 2px solid black;
